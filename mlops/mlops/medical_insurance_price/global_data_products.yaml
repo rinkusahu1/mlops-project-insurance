@@ -1,0 +1,9 @@
+training_set_m:
+  object_type: pipeline
+  object_uuid: data_preparation_m
+  outdated_after:
+    seconds: 700
+  project: medical_insurance_price
+  repo_path: /home/src/mlops/medical_insurance_price
+  settings:
+    build_block: {}
