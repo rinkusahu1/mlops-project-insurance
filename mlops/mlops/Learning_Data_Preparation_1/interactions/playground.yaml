@@ -1,0 +1,48 @@
+inputs:
+  options:
+    options:
+    - label: '236'
+      value: '236'
+    - label: '65'
+      value: '65'
+    - label: ''
+      value: ''
+    type: dropdown_menu
+  optionsDu:
+    options:
+    - label: '239'
+      value: '239'
+    - label: '170'
+      value: '170'
+    type: dropdown_menu
+  text:
+    style:
+      input_type: number
+    type: text_field
+layout:
+- - variable: DOLocationID
+    width: 1
+- - variable: PULocationID
+    width: 1
+- - variable: trip_distance
+    width: 1
+variables:
+  DOLocationID:
+    description: Sample values 236,65
+    input: optionsDu
+    name: DOLocationID
+    types:
+    - integer
+  PULocationID:
+    description: sample values 236,65
+    input: options
+    name: PULocationID
+    required: false
+    types:
+    - integer
+  trip_distance:
+    description: sample vlaue 1.98
+    input: text
+    name: trip_distance
+    types:
+    - float
