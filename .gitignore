@@ -153,7 +153,10 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
-
+Anaconda3-2022.05-Linux-x86_64.sh
+awscliv2.zip
+MLOPScommit
+aws/
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
