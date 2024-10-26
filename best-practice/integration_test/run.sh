@@ -44,4 +44,4 @@ if [ ${ERROR_CODE} != 0 ]; then
 fi
 
 
-#docker-compose down
+docker-compose down
