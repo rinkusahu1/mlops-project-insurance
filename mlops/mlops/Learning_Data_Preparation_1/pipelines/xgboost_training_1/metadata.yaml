@@ -72,7 +72,7 @@ blocks:
   language: python
   name: dashboard data source
   retry_config: null
-  status: executed
+  status: failed
   timeout: null
   type: custom
   upstream_blocks:
@@ -105,5 +105,5 @@ variables:
   early_stopping_rounds: 1
   max_depth: 10
   max_evaluations: 1
-variables_dir: /home/src/mage_data/Learning_Data_Preparation_1
+variables_dir: /home/src/mage_data/medical_insurance_price
 widgets: []

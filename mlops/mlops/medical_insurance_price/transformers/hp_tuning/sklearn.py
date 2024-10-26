@@ -22,7 +22,7 @@ def hyperparameter_tuning(
     Series,
     Callable[..., BaseEstimator],
 ]:
-    X, X_train, X_val, y, y_train, y_val, _ = training_set_l1['build_block']
+    X, X_train, X_val, y, y_train, y_val, dv = training_set_l1['build_block']
 
     model_class = load_class(model_class_name)
 
@@ -36,4 +36,4 @@ def hyperparameter_tuning(
         random_state=kwargs.get('random_state'),
     )
 
-    return hyperparameters, X, y, dict(cls=model_class, name=model_class_name)
+    return hyperparameters, X_train, X_val,y_train,y_val,dv, dict(cls=model_class, name=model_class_name)

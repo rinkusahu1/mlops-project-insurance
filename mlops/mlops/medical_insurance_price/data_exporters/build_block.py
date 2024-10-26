@@ -34,6 +34,9 @@ def export(
         df_train,
         df_val,
     )
+    X_train = X_train.drop(columns=[target])
+    X_val = X_val.drop(columns=[target])
+
     y_train = df_train[target]
     y_val = df_val[target]
 

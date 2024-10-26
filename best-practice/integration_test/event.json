@@ -1,0 +1,20 @@
+{
+    "Records": [
+        {
+            "kinesis": {
+                "kinesisSchemaVersion": "1.0",
+                "partitionKey": "1",
+                "sequenceNumber": "49630081666084879290581185630324770398608704880802529282",
+                "data": "ewoJImluc3VyYW5jZSI6IHsKCQkic21va2VyIjogInllcyIsCgkJInNleCI6ICJmZW1hbGUiLAoJCSJjaGlsZHJlbiI6IDAsCgkJImJtaSI6IDI2LjI5LAoJCSJhZ2UiOiA2MgoJfSwgCgkibWVkaWNhbF9pbnN1cmFuY2VfaWQiOiAyNTYKfQ==",
+                "approximateArrivalTimestamp": 1654161514.132
+            },
+            "eventSource": "aws:kinesis",
+            "eventVersion": "1.0",
+            "eventID": "shardId-000000000000:49630081666084879290581185630324770398608704880802529282",
+            "eventName": "aws:kinesis:record",
+            "invokeIdentityArn": "arn:aws:iam::387546586013:role/lambda-kinesis-role",
+            "awsRegion": "eu-north-1",
+            "eventSourceARN": "arn:aws:kinesis:eu-north-1:387546586013:stream/ride_events"
+        }
+    ]
+}

@@ -1,125 +1,58 @@
 blocks:
-  distribution_of_performance_metrices_1:
+  distibution_of_performance:
     configuration:
       chart_type: histogram
       group_by:
-      - rmse_Booster
+      - rmse_RandomForestRegressor
       x_axis_label_format: return value.toFixed(3)
-      y_axis_label_format: ''
-      y_tooltip_label_format: 'const [xMin,xMax] = values.values;
+      x_tooltip_label_format: ''
+      y_tooltip_label_format: 'const [xMin,xMax] = values.values
 
         return `${xMin.toFixed(3)} to ${xMax.toFixed(3)}`'
     data_source:
       type: chart_code
     error: null
-    name: Distribution of performance metrices 1
+    name: Distibution of performance
+    name_new: Distibution of performance
     skip_render: false
     type: chart
-    uuid: distribution_of_performance_metrices_1
-  distribution_of_performance_metrics:
-    configuration:
-      chart_type: histogram
-      group_by:
-      - rmse_Booster
-      x_axis_label_format: return value.toFixed(3)
-      x_tooltip_label_format: return 2
-      y_tooltip_label_format: 'const [xMin, xMax] = values.values;
-
-        return `${xMin.toFixed(3)} to ${xMax.toFixed(3)}`'
-    data_source:
-      type: chart_code
-    error: null
-    name: Distribution of performance metrics
-    skip_render: false
-    type: chart
-    uuid: distribution_of_performance_metrics
-  organic_silversmith:
-    name: organic silversmith
-    type: chart
-    uuid: organic_silversmith
-  runs_by_model__pie_chart_:
+    uuid: distibution_of_performance
+  run_by_model__pie_chart_:
     configuration:
       chart_type: pie chart
       group_by:
       - model
+      x_axis_label_format: return `${value} (${index/2})`
     data_source:
       type: chart_code
     error: null
-    name: Runs by model (Pie chart)
+    name: Run by model (Pie chart)
+    name_new: Run by model (Pie chart)
     skip_render: false
     type: chart
-    uuid: runs_by_model__pie_chart_
-  runs_by_model__pie_chart__1:
-    configuration:
-      chart_type: pie chart
-      group_by:
-      - model
-    data_source:
-      type: chart_code
-    error: null
-    name: Runs by model (Pie Chart) 1
-    skip_render: false
-    type: chart
-    uuid: runs_by_model__pie_chart__1
-  time_series__mse_:
+    uuid: run_by_model__pie_chart_
+  time_series_bar_chart:
     configuration:
       chart_type: time series bar chart
       group_by:
       - start_time
       metrics:
       - aggregation: average
-        column: mse_Booster
+        column: rmse_RandomForestRegressor
       - aggregation: average
-        column: mse_LinearRegression
+        column: rmse_LinearRegression
       - aggregation: average
-        column: mse_Lasso
+        column: mse_Ridge
       time_interval: hour
       x_axis_label_format: hh
     data_source:
       type: chart_code
     error: null
-    name: Time series (MSE)
-    name_new: Time series (MSE)
+    name: Time series bar chart
     skip_render: false
     type: chart
-    uuid: time_series__mse_
-  time_series__mse__11:
-    configuration:
-      chart_type: time series bar chart
-      group_by:
-      - start_time
-      metrics:
-      - aggregation: average
-        column: mse_Booster
-      x_axis_label_format: hh
-    data_source:
-      type: chart_code
-    error: null
-    name: Time Series (MSE) 11
-    name_new: Time Series (MSE) 11
-    skip_render: false
-    type: chart
-    uuid: time_series__mse__11
-  total_run_by_model:
-    configuration:
-      chart_style: horizontal
-      chart_type: bar chart
-      group_by:
-      - model
-      metrics:
-      - aggregation: count_distinct
-        column: run_uuid
-      y_sort_order: descending
-      y_tooltip_label_format: 'return `${value} total runs` '
-    data_source:
-      type: chart_code
-    error: null
-    name: Total run by model
-    name_new: Total run by model
-    skip_render: false
-    type: chart
-    uuid: total_run_by_model
-  total_runs_by_model:
+    uuid: time_series_bar_chart
+  total_runs_by_modelv:
     configuration:
       chart_style: horizontal
       chart_type: bar chart
@@ -133,85 +66,43 @@ blocks:
     data_source:
       type: chart_code
     error: null
-    name: Total runs by model
+    name: Total runs by modelv
+    name_new: Total runs by modelv
     skip_render: false
     type: chart
-    uuid: total_runs_by_model
-  training_metrics__rmse_:
+    uuid: total_runs_by_modelv
+  training_metrics__rmse__mm:
     configuration:
       chart_type: time series line chart
       design:
-        x_grid_lines_hidden: true
-        y_grid_lines_hidden: true
         y_values_smooth: true
       group_by:
       - start_time
       metrics:
       - aggregation: average
-        column: rmse_Booster
+        column: rmse_RandomForestRegressor
       - aggregation: average
         column: rmse_LinearRegression
       - aggregation: average
-        column: rmse_Lasso
+        column: rmse_Ridge
       time_interval: minute
-      x_axis_label_format: h:mm
-      x_grid_lines_hidden: true
-      y_axis_label_format: return parseFloat(value).toFixed(3)
-      y_grid_lines_hidden: true
+      x_axis_label_format: hh
       y_values_smooth: true
     data_source:
       type: chart_code
     error: null
-    name: Training metrics (RMSE)
-    name_new: Training metrics (RMSE)
+    name: Training Metrics (RMSE) mm
     skip_render: false
     type: chart
-    uuid: training_metrics__rmse_
-  training_metrics_rmse_:
-    configuration:
-      chart_type: time series line chart
-      group_by:
-      - start_time
-      metrics:
-      - aggregation: average
-        column: rmse_Booster
-      time_interval: minute
-      x_axis_label_format: h:mm
-    data_source:
-      type: chart_code
-    error: null
-    name: Training Metrics(RMSE)
-    name_new: Training Metrics(RMSE)
-    skip_render: false
-    type: chart
-    uuid: training_metrics_rmse_
+    uuid: training_metrics__rmse__mm
 layout:
-- - block_uuid: training_metrics__rmse_
-    height: 400
-    max_width_percentage: 50
-    width: 2
-  - block_uuid: time_series__mse_
-    height: 400
-    width: 2
-- - block_uuid: total_runs_by_model
+- - block_uuid: run_by_model__pie_chart_
     width: 1
-  - block_uuid: distribution_of_performance_metrics
-    max_width_percentage: 0
-    width: 2
-  - block_uuid: runs_by_model__pie_chart_
+  - block_uuid: total_runs_by_modelv
     width: 1
-- - block_uuid: training_metrics_rmse_
-    height: 0
-    max_width_percentage: 0
-    width: 2
-  - block_uuid: time_series__mse__11
-    width: 3
-- - block_uuid: organic_silversmith
+- - block_uuid: time_series_bar_chart
     width: 1
-- - block_uuid: distribution_of_performance_metrices_1
-    max_width_percentage: 50
+  - block_uuid: training_metrics__rmse__mm
     width: 1
-  - block_uuid: total_run_by_model
-    width: 1
-  - block_uuid: runs_by_model__pie_chart__1
+- - block_uuid: distibution_of_performance
     width: 1

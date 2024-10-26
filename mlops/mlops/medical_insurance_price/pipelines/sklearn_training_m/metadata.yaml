@@ -43,7 +43,8 @@ blocks:
   configuration:
     file_source:
       path: medical_insurance_price/transformers/hp_tuning/sklearn.py
-  downstream_blocks: []
+  downstream_blocks:
+  - training_model
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -57,6 +58,25 @@ blocks:
   - training_set_m
   - load_models
   uuid: hp_tuning/sklearn
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: medical_insurance_price/data_exporters/training_model.py
+    reduce_output: true
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: training_model
+  retry_config: null
+  status: failed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - hp_tuning/sklearn
+  uuid: training_model
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
@@ -81,7 +101,7 @@ tags:
 type: python
 uuid: sklearn_training_m
 variables:
-  max_evaluations: 1
+  max_evaluations: 5
   random_state: 42
 variables_dir: /home/src/mage_data/medical_insurance_price
 widgets: []

@@ -185,3 +185,5 @@ secrets/
 terraform.tfstate
 terraform.tfstate.backup
 titanic_clean.csv
+
+Medical-Cost-Prediction

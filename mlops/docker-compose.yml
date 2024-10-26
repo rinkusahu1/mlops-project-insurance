@@ -19,8 +19,9 @@ services:
       # Local machine’s GitHub configs
       - ~/.gitconfig:/root/.gitconfig:ro
     restart: on-failure:5
-    networks:
-      - app-network
+    # networks:
+    #   - app-network
+    network_mode: host
     depends_on:
       - magic-database
     stdin_open: true # used for interactive debugging
@@ -36,8 +37,9 @@ services:
       # Custom database initialization scripts (optional).
       - ./scripts/database:/docker-entrypoint-initdb.d
     restart: always
-    networks:
-      - app-network
-networks:
-  app-network:
-    driver: bridge
+    # networks:
+    #   - app-network
+    network_mode: host
+# networks:
+#   app-network:
+#     driver: host

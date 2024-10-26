@@ -7,12 +7,12 @@ from pandas import Series
 from scipy.sparse._csr import csr_matrix
 from sklearn.base import BaseEstimator
 from sklearn.metrics import r2_score, mean_squared_error, accuracy_score, confusion_matrix
-from mlops.mi_util.hyperparameters.shared import build_hyperparameters_space
+from mlops.mi_util.hyperparameters.shared import build_hyperparameters_space, derived_best_hyperparamteres
 import mlflow
+import pickle
 
-
-#mlflow.set_tracking_uri("http://127.0.0.1:5000")
-#mlflow.set_experiment("medical-insurance-price_prediction")
+mlflow.set_tracking_uri("http://127.0.0.1:5000")
+mlflow.set_experiment("medical-insurance-price_prediction")
 
 HYPERPARAMETERS_WITH_CHOICE_INDEX = [
     'fit_intercept',
@@ -66,6 +66,37 @@ def train_model(
 
     return model, metrics, y_pred
 
+def train_model_with_logging(
+    model_class: Callable[..., BaseEstimator],
+    params: Dict,
+    X_train: csr_matrix,
+    y_train: Series,
+    X_val: csr_matrix,
+    y_val: Series,
+    dv: Dict
+) ->  Tuple[BaseEstimator, Optional[Dict]]:
+    with mlflow.start_run():
+        mlflow.set_tag("developer", "rinku")
+        mlflow.set_tag("model",model_class)
+        mlflow.set_tag("run_type","model")
+        print("Model param",params)
+        mlflow.log_params(params)
+        
+        model, metrics, predictions = train_model(
+            model_class(**params),
+            X_train,
+            y_train,
+            X_val=X_val,
+            y_val=y_val
+        )
+        mlflow.log_metrics(metrics)
+        
+        with open("preprocessor.b", "wb") as f_out:
+            pickle.dump(dv, f_out)
+        mlflow.log_artifact("preprocessor.b", artifact_path="preprocessor")
+        mlflow.sklearn.log_model(model, artifact_path="models_mlflow")
+
+        return model, metrics
 
 def tune_hyperparameters(
     model_class: Callable[..., BaseEstimator],
@@ -91,30 +122,33 @@ def tune_hyperparameters(
         y_train=y_train,
         y_val=y_val,
     ) -> Dict[str, Union[float, str]]:
-        #with mlflow.start_run():
-        #mlflow.set_tag("developer", "rinku")
-        #mlflow.set_tag("model",model_class)
-        #mlflow.log_params(params)
-        #mlflow.log_params(fit_params)
-        model, metrics, predictions = train_model(
-            model_class(**params),
-            X_train,
-            y_train,
-            X_val=X_val,
-            y_val=y_val,
-            eval_metric=eval_metric,
-            fit_params=fit_params,
-        )
-        #mlflow.log_metrics(metrics)
-        if callback:
-            callback(
-                hyperparameters=params,
-                metrics=metrics,
-                model=model,
-                predictions=predictions,
+        with mlflow.start_run():
+            mlflow.set_tag("developer", "rinku")
+            mlflow.set_tag("model",model_class)
+            mlflow.set_tag("run_type","hp_tuning")
+            print("Model param",params)
+            mlflow.log_params(params)
+            if fit_params is not None:
+                mlflow.log_params(fit_params)
+            model, metrics, predictions = train_model(
+                model_class(**params),
+                X_train,
+                y_train,
+                X_val=X_val,
+                y_val=y_val,
+                eval_metric=eval_metric,
+                fit_params=fit_params,
             )
+            mlflow.log_metrics(metrics)
+            if callback:
+                callback(
+                    hyperparameters=params,
+                    metrics=metrics,
+                    model=model,
+                    predictions=predictions,
+                )
 
-        return dict(loss=metrics['val_mse'], status=STATUS_OK)
+            return dict(loss=metrics['val_rmse'], status=STATUS_OK)
 
     space, choices = build_hyperparameters_space(
         model_class,
@@ -141,8 +175,12 @@ def tune_hyperparameters(
         'max_depth',
         'max_iter',
         'min_samples_leaf',
+        'min_samples_split',
+        'n_estimators',
     ]:
         if key in best_hyperparameters:
             best_hyperparameters[key] = int(best_hyperparameters[key])
+    
+    best_hyperparameters = derived_best_hyperparamteres(model_class,best_hyperparameters)
 
     return best_hyperparameters
