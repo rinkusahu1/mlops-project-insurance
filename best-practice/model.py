@@ -2,12 +2,10 @@ import os
 import json
 import base64
 import pickle
+
 import boto3
 import mlflow
 
-			 
-
-										 
 
 def get_model_location(run_id):
     model_location = os.getenv('MODEL_LOCATION')
@@ -18,8 +16,11 @@ def get_model_location(run_id):
     model_bucket = os.getenv('MODEL_BUCKET', 'medical-insurance-pp-artifacts')
     experiment_id = os.getenv('MLFLOW_EXPERIMENT_ID', '1')
 
-    model_location = f's3://{model_bucket}/{experiment_id}/{run_id}/artifacts/models_mlflow'
+    model_location = (
+        f's3://{model_bucket}/{experiment_id}/{run_id}/artifacts/models_mlflow'
+    )
     return model_location
+
 
 def get_scaler_location(run_id):
     scaler_location = os.getenv('SCALER_LOCATION')
@@ -30,19 +31,22 @@ def get_scaler_location(run_id):
     model_bucket = os.getenv('MODEL_BUCKET', 'medical-insurance-pp-artifacts')
     experiment_id = os.getenv('MLFLOW_EXPERIMENT_ID', '1')
 
-    scaler_location = f's3://{model_bucket}/{experiment_id}/{run_id}/artifacts/preprocessor'
+    scaler_location = (
+        f's3://{model_bucket}/{experiment_id}/{run_id}/artifacts/preprocessor'
+    )
 
     scaler_path = mlflow.artifacts.download_artifacts(
-        artifact_uri=scaler_location,dst_path= "."
+        artifact_uri=scaler_location, dst_path="."
     )
     return scaler_path
 
 
 def load_scaler(run_id):
-    scaler_location  = get_scaler_location(run_id)
+    scaler_location = get_scaler_location(run_id)
     with open(f"{scaler_location}/preprocessor.b", "rb") as f_in:
         scaler = pickle.load(f_in)
     return scaler
+
 
 def load_model(run_id):
     model_path = get_model_location(run_id)
@@ -57,14 +61,14 @@ def base64_decode(encoded_data):
 
 
 class ModelService:
-    def __init__(self, model,scaler, model_version=None, callbacks=None):
+    def __init__(self, model, scaler, model_version=None, callbacks=None):
         self.model = model
         self.model_version = model_version
         self.stdscaler = scaler
         self.callbacks = callbacks or []
 
     def prepare_features(self, insurance):
-    # Define the mapping for clean data
+        # Define the mapping for clean data
         clean_data = {
             'sex': {'male': 0, 'female': 1},
             'smoker': {'no': 0, 'yes': 1},
@@ -72,36 +76,42 @@ class ModelService:
 
         # Apply the mappings to the dictionary values directly
         features = {
-            'smoker': clean_data['smoker'].get(insurance['smoker'], insurance['smoker']),
+            'smoker': clean_data['smoker'].get(
+                insurance['smoker'], insurance['smoker']
+            ),
             'sex': clean_data['sex'].get(insurance['sex'], insurance['sex']),
             'children': insurance['children'],
             'bmi': insurance['bmi'],
-            'age': insurance['age']
+            'age': insurance['age'],
         }
-        
+
         return features
 
-    def scaling(self,values):
-    # Define the columns to scale
+    def scaling(self, values):
+        # Define the columns to scale
         scalingColumns = ['bmi', 'age']
         for column in scalingColumns:
             if column in values:
                 # Use transform on the single value, reshaped to fit transform() requirements
-                values[column] = self.stdscaler[column].transform([[values[column]]])[0][0]
+                values[column] = self.stdscaler[column].transform([[values[column]]])[
+                    0
+                ][0]
         return values
 
-    def prediction_conversion(self,values):
+    def prediction_conversion(self, values):
         scalingColumns = ['charges']
 
         for column in scalingColumns:
             if column in values:
                 # Use transform on the single value, reshaped to fit transform() requirements
-                values[column] = self.stdscaler[column].inverse_transform([[values[column]]])[0][0]
-        print(values)		 
+                values[column] = self.stdscaler[column].inverse_transform(
+                    [[values[column]]]
+                )[0][0]
+        print(values)
         return values['charges']
 
     def predict(self, features):
-        features  = [[value for value in features.values()]]
+        features = [[value for value in features.values()]]
         pred = self.model.predict(features)
         return pred[0]
 
@@ -121,12 +131,15 @@ class ModelService:
             features = self.prepare_features(insurance)
             features = self.scaling(features)
             prediction = self.predict(features)
-            prediction = self.prediction_conversion({'charges':prediction})
+            prediction = self.prediction_conversion({'charges': prediction})
 
             prediction_event = {
                 'model': 'insurance_price_prediction_model',
                 'version': self.model_version,
-                'prediction': {'insurance_price': prediction, 'insurance_id': insurance_id},
+                'prediction': {
+                    'insurance_price': prediction,
+                    'insurance_id': insurance_id,
+                },
             }
 
             for callback in self.callbacks:
@@ -166,7 +179,7 @@ def create_kinesis_client():
 
 def init(prediction_stream_name: str, run_id: str, test_run: bool):
     model = load_model(run_id)
-    scaler  = load_scaler(run_id)
+    scaler = load_scaler(run_id)
 
     callbacks = []
 
@@ -175,6 +188,8 @@ def init(prediction_stream_name: str, run_id: str, test_run: bool):
         kinesis_callback = KinesisCallback(kinesis_client, prediction_stream_name)
         callbacks.append(kinesis_callback.put_record)
 
-    model_service = ModelService(model=model,scaler =scaler, model_version=run_id, callbacks=callbacks)
+    model_service = ModelService(
+        model=model, scaler=scaler, model_version=run_id, callbacks=callbacks
+    )
 
     return model_service

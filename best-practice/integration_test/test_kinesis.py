@@ -39,7 +39,7 @@ assert len(records) == 1
 actual_record = json.loads(records[0]['Data'])
 pprint(actual_record)
 
-expected_record =  {
+expected_record = {
     'model': 'insurance_price_prediction_model',
     'version': 'Test123',
     'prediction': {
