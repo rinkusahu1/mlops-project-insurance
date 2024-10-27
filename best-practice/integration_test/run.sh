@@ -29,8 +29,8 @@ pipenv run python test_docker.py
 ERROR_CODE=$?
 
 if [ ${ERROR_CODE} != 0 ]; then
-    docker-compose logs
-    docker-compose down
+    docker compose logs
+    docker compose down
     exit ${ERROR_CODE}
 fi
 
