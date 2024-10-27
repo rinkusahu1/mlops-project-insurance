@@ -111,7 +111,7 @@ class ModelService:
         return values['charges']
 
     def predict(self, features):
-        features = [[value for value in features.values()]]
+        features = [list(features.values())]
         pred = self.model.predict(features)
         return pred[0]
 

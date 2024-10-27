@@ -4,5 +4,5 @@ insurance = {"smoker": "yes", "sex": "female", "children": 0, "bmi": 26.29, "age
 
 
 url = 'http://localhost:9696/predict'
-response = requests.post(url, json=insurance,timeout=10)
+response = requests.post(url, json=insurance, timeout=10)
 print(response.json())

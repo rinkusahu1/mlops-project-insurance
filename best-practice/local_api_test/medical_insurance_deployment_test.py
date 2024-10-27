@@ -1,9 +1,6 @@
 import os
-import json
-import base64
 import pickle
 
-import boto3
 import mlflow
 from flask import Flask, jsonify, request
 
@@ -106,7 +103,7 @@ class ModelService:
         return values['charges']
 
     def predict(self, features):
-        features = [[value for value in features.values()]]
+        features = [list(features.values())]
         pred = self.model.predict(features)
         return pred[0]
 
@@ -121,11 +118,11 @@ class ModelService:
         return {'predictions': prediction}
 
 
-run_id = "a88c9191dd3d471480f1567e10af9d28"
-model = load_model(run_id)
-scaler = load_scaler(run_id)
+run_i = "a88c9191dd3d471480f1567e10af9d28"
+model_l = load_model(run_i)
+scaler_l = load_scaler(run_i)
 
-model_service = ModelService(model=model, scaler=scaler, model_version=run_id)
+model_service = ModelService(model=model_l, scaler=scaler_l, model_version=run_i)
 
 app = Flask('price-prediction')
 

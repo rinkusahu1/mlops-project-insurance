@@ -5,6 +5,8 @@ from sklearn.preprocessing import StandardScaler
 
 import model
 
+# import model
+
 
 def read_text(file):
     test_directory = Path(__file__).parent
@@ -75,6 +77,8 @@ class ModelMock:
         self.value = value
 
     def scaling(self, values):
+        if values is not None:
+            return values
         return {"smoker": 1, "sex": 1, "children": 0, "bmi": 26.29, "age": 62}
 
     def predict(self, X):
