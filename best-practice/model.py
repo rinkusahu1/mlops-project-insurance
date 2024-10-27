@@ -30,7 +30,7 @@ def get_scaler_location(run_id):
     scaler_location = os.getenv('SCALER_LOCATION')
 
     if scaler_location is not None:
-        return scaler_location
+        return f"{scaler_location}/preprocessor.b"
 
     model_bucket = os.getenv('MODEL_BUCKET', 'medical-insurance-pp-artifacts')
     experiment_id = os.getenv('MLFLOW_EXPERIMENT_ID', '1')
