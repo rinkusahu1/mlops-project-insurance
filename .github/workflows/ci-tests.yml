@@ -48,7 +48,7 @@ jobs:
       - name: Integration Test
         working-directory: 'best-practice/integration_test'
         run: |
-          run.sh
+         sh run.sh
 
   tf-plan:
     runs-on: ubuntu-latest
