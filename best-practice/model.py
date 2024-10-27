@@ -5,8 +5,6 @@ import pickle
 
 import boto3
 import mlflow
-import sklearn
-from sklearn.preprocessing import StandardScaler
 
 
 def get_model_location(run_id):
