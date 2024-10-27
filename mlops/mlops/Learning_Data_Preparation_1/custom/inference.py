@@ -1,10 +1,9 @@
 from typing import Dict, List, Tuple, Union
 
-from sklearn.feature_extraction import DictVectorizer
-from xgboost import Booster
-
 from mlops.utils.data_preparation.feature_engineering import combine_features
 from mlops.utils.models.xgboost import build_data
+from sklearn.feature_extraction import DictVectorizer
+from xgboost import Booster
 
 if 'custom' not in globals():
     from mage_ai.data_preparation.decorators import custom
@@ -30,7 +29,9 @@ def predict(
     model_settings: Dict[str, Tuple[Booster, DictVectorizer]],
     **kwargs,
 ) -> List[float]:
-    inputs: List[Dict[str, Union[float, int]]] = kwargs.get('run', {}).get('variables', {}).get('inputs', DEFAULT_INPUTS)
+    inputs: List[Dict[str, Union[float, int]]] = (
+        kwargs.get('run', {}).get('variables', {}).get('inputs', DEFAULT_INPUTS)
+    )
     inputs = combine_features(inputs)
 
     DOLocationID = kwargs.get('DOLocationID')
@@ -39,8 +40,11 @@ def predict(
 
     print(inputs)
 
-    
-    if DOLocationID is not None or PULocationID is not None or trip_distance is not None:
+    if (
+        DOLocationID is not None
+        or PULocationID is not None
+        or trip_distance is not None
+    ):
         inputs = [
             {
                 'DOLocationID': DOLocationID,

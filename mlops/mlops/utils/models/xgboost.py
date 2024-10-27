@@ -8,10 +8,9 @@ import scipy
 import xgboost as xgb
 from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 from hyperopt.pyll import scope
+from mlops.utils.hyperparameters.shared import build_hyperparameters_space
 from sklearn.metrics import mean_squared_error
 from xgboost import Booster, DMatrix
-
-from mlops.utils.hyperparameters.shared import build_hyperparameters_space
 
 HYPERPARAMETERS_WITH_CHOICE_INDEX = []
 

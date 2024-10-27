@@ -1,11 +1,10 @@
 from typing import List, Tuple
 
+from mlops.utils.data_preparation.encoders import vectorize_features
+from mlops.utils.data_preparation.feature_selector import select_features
 from pandas import DataFrame, Series
 from scipy.sparse._csr import csr_matrix
 from sklearn.base import BaseEstimator
-
-from mlops.utils.data_preparation.encoders import vectorize_features
-from mlops.utils.data_preparation.feature_selector import select_features
 
 if 'data_exporter' not in globals():
     from mage_ai.data_preparation.decorators import data_exporter
@@ -14,9 +13,7 @@ if 'test' not in globals():
 
 
 @data_exporter
-def export(
-    data: Tuple[DataFrame, DataFrame, DataFrame], *args, **kwargs
-) -> Tuple[
+def export(data: Tuple[DataFrame, DataFrame, DataFrame], *args, **kwargs) -> Tuple[
     csr_matrix,
     csr_matrix,
     csr_matrix,

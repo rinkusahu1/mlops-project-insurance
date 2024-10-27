@@ -2,11 +2,10 @@ from typing import Dict, Tuple, Union
 
 import numpy as np
 import xgboost as xgb
-from pandas import Series
-from scipy.sparse._csr import csr_matrix
-
 from mlops.utils.logging import track_experiment
 from mlops.utils.models.xgboost import build_data, tune_hyperparameters
+from pandas import Series
+from scipy.sparse._csr import csr_matrix
 
 if 'transformer' not in globals():
     from mage_ai.data_preparation.decorators import transformer

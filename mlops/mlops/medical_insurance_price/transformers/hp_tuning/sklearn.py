@@ -1,10 +1,9 @@
 from typing import Callable, Dict, Tuple, Union
 
+from mlops.mi_util.models.sklearn import load_class, tune_hyperparameters
 from pandas import Series
 from scipy.sparse._csr import csr_matrix
 from sklearn.base import BaseEstimator
-
-from mlops.mi_util.models.sklearn import load_class, tune_hyperparameters
 
 if 'transformer' not in globals():
     from mage_ai.data_preparation.decorators import transformer
@@ -36,4 +35,12 @@ def hyperparameter_tuning(
         random_state=kwargs.get('random_state'),
     )
 
-    return hyperparameters, X_train, X_val,y_train,y_val,dv, dict(cls=model_class, name=model_class_name)
+    return (
+        hyperparameters,
+        X_train,
+        X_val,
+        y_train,
+        y_val,
+        dv,
+        dict(cls=model_class, name=model_class_name),
+    )

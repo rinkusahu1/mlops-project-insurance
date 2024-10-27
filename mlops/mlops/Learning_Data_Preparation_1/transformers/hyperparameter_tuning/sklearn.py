@@ -1,10 +1,9 @@
 from typing import Callable, Dict, Tuple, Union
 
+from mlops.utils.models.sklearn import load_class, tune_hyperparameters
 from pandas import Series
 from scipy.sparse._csr import csr_matrix
 from sklearn.base import BaseEstimator
-
-from mlops.utils.models.sklearn import load_class, tune_hyperparameters
 
 if 'transformer' not in globals():
     from mage_ai.data_preparation.decorators import transformer

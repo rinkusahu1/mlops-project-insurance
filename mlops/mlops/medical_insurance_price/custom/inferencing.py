@@ -1,13 +1,10 @@
-
-from typing import Dict, List, Tuple, Union
-
-from sklearn.feature_extraction import DictVectorizer
-from xgboost import Booster
+from typing import Callable, Dict, List, Optional, Tuple, Union
 
 from mlops.utils.data_preparation.feature_engineering import combine_features
 from mlops.utils.models.xgboost import build_data
-from typing import Callable, Dict, Optional, Tuple, Union
 from sklearn.base import BaseEstimator
+from sklearn.feature_extraction import DictVectorizer
+from xgboost import Booster
 
 if 'custom' not in globals():
     from mage_ai.data_preparation.decorators import custom

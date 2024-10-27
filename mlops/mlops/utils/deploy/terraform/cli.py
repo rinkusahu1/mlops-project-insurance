@@ -1,8 +1,6 @@
 import subprocess
 
-from mlops.utils.deploy.terraform.constants import (
-    TERRAFORM_AWS_FULL_PATH,
-)
+from mlops.utils.deploy.terraform.constants import TERRAFORM_AWS_FULL_PATH
 
 
 def run_terraform_commands(subfolder: str) -> None:

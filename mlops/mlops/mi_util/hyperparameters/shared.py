@@ -2,33 +2,32 @@ from typing import Callable, Dict, List, Tuple, Union
 
 from hyperopt import hp, tpe
 from hyperopt.pyll import scope
-from sklearn.ensemble import (
-    RandomForestRegressor,
-)
-from sklearn.linear_model import Ridge, LinearRegression
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import LinearRegression, Ridge
 from sklearn.svm import SVR
 from xgboost import Booster
 
-svr_kernal  = ['rbf', 'sigmoid']
+svr_kernal = ['rbf', 'sigmoid']
 
 svr_params = {
-            'kernel': hp.choice('kernel', svr_kernal),
-            'gamma': hp.loguniform('gamma', -3, 0),
-            'tol': 0.0001,
-            'C': hp.loguniform('C', -3,2),
-        }
-max_features =  [1.0,'sqrt']
+    'kernel': hp.choice('kernel', svr_kernal),
+    'gamma': hp.loguniform('gamma', -3, 0),
+    'tol': 0.0001,
+    'C': hp.loguniform('C', -3, 2),
+}
+max_features = [1.0, 'sqrt']
 random_forest_regresor = {
-                    'n_estimators': scope.int(hp.uniform('n_estimators', 600, 1200)),
-                    'max_features': hp.choice('max_features', max_features),
-                    'max_depth': scope.int(hp.uniform('max_depth', 40, 60)),
-                    'min_samples_split': scope.int(hp.uniform('min_samples_split', 5, 9)),
-                    'min_samples_leaf': scope.int(hp.uniform('min_samples_leaf', 7, 12)),
-                    'criterion': 'friedman_mse'
-                }
-ridge_params  = {
-            'alpha': scope.int(hp.loguniform('alpha', -3, 2)),
-        }
+    'n_estimators': scope.int(hp.uniform('n_estimators', 600, 1200)),
+    'max_features': hp.choice('max_features', max_features),
+    'max_depth': scope.int(hp.uniform('max_depth', 40, 60)),
+    'min_samples_split': scope.int(hp.uniform('min_samples_split', 5, 9)),
+    'min_samples_leaf': scope.int(hp.uniform('min_samples_leaf', 7, 12)),
+    'criterion': 'friedman_mse',
+}
+ridge_params = {
+    'alpha': scope.int(hp.loguniform('alpha', -3, 2)),
+}
+
 
 def build_hyperparameters_space(
     model_class: Callable[
@@ -55,7 +54,7 @@ def build_hyperparameters_space(
         params = random_forest_regresor
 
     if Ridge is model_class:
-        ridge_params['random_state'] = random_state  
+        ridge_params['random_state'] = random_state
         params = ridge_params
 
     if LinearRegression is model_class:
@@ -95,6 +94,7 @@ def build_hyperparameters_space(
 
     return params, choices
 
+
 def derived_best_hyperparamteres(
     model_class: Callable[
         ...,
@@ -119,6 +119,4 @@ def derived_best_hyperparamteres(
     if RandomForestRegressor is model_class:
         best_hp['max_features'] = max_features[best_hp['max_features']]
 
-
-    return best_hp;
-
+    return best_hp

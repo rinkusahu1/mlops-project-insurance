@@ -1,7 +1,7 @@
 from mlops.utils.deploy.aws import (
+    GITHUB_ACTIONS_DEPLOY_URL,
     IAM_USER_NAME_CICD,
     POLICY_NAME_GITHUB_ACTIONS_DEPLOY_MAGE,
-    GITHUB_ACTIONS_DEPLOY_URL,
     attach_policy_to_user,
     create_access_key_for_user,
     create_policy,

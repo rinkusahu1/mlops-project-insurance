@@ -1,7 +1,6 @@
 from typing import Tuple
 
 import pandas as pd
-
 from mlops.utils.data_preparation.cleaning import clean
 from mlops.utils.data_preparation.feature_engineering import combine_features
 from mlops.utils.data_preparation.feature_selector import select_features

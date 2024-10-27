@@ -1,6 +1,5 @@
 from mage_ai.data_cleaner.column_types.column_type_detector import infer_column_types
 
-
 headers = ['value']
 stats = ['Columns', 'Rows']
 rows = [[len(df_1.columns)], [len(df_1.index)]]

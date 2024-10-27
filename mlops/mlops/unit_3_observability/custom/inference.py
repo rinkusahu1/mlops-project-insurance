@@ -1,10 +1,9 @@
 from typing import Dict, List, Tuple, Union
 
-from sklearn.feature_extraction import DictVectorizer
-from xgboost import Booster
-
 from mlops.utils.data_preparation.feature_engineering import combine_features
 from mlops.utils.models.xgboost import build_data
+from sklearn.feature_extraction import DictVectorizer
+from xgboost import Booster
 
 if 'custom' not in globals():
     from mage_ai.data_preparation.decorators import custom
@@ -37,7 +36,11 @@ def predict(
     PULocationID = kwargs.get('PULocationID')
     trip_distance = kwargs.get('trip_distance')
 
-    if DOLocationID is not None or PULocationID is not None or trip_distance is not None:
+    if (
+        DOLocationID is not None
+        or PULocationID is not None
+        or trip_distance is not None
+    ):
         inputs = [
             {
                 'DOLocationID': DOLocationID,
@@ -45,7 +48,7 @@ def predict(
                 'trip_distance': trip_distance,
             },
         ]
-    
+
     model, vectorizer = model_settings['xgboost']
     vectors = vectorizer.transform(inputs)
 

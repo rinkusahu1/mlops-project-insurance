@@ -3,9 +3,11 @@ if 'data_loader' not in globals():
 if 'test' not in globals():
     from mage_ai.data_preparation.decorators import test
 
+from io import BytesIO
+
 import pandas as pd
 import requests
-from io import BytesIO
+
 
 @data_loader
 def ingest_files(**kwargs) -> pd.DataFrame:

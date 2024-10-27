@@ -1,10 +1,8 @@
+import sqlite3
 from datetime import datetime
 
 import pandas as pd
-import sqlite3
-
 from mlops.utils.logging import DEFAULT_TRACKING_URI
-
 
 QUERY = """
 SELECT
@@ -45,7 +43,6 @@ def load_data(*args, **kwargs) -> pd.DataFrame:
             start_time_format_day = start_time.strftime('%Y-%m-%d')
             start_time_format_hour = start_time.strftime('%Y-%m-%d %H:%M')
             start_time_format_minute = start_time.strftime('%H:%MD%d')
-
 
             data = dict(
                 model=model,

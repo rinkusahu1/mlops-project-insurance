@@ -1,9 +1,8 @@
 from pathlib import Path
 
+import model
 import numpy as np
 from sklearn.preprocessing import StandardScaler
-
-import model
 
 # import model
 

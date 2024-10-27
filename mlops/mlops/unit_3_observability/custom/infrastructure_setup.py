@@ -1,7 +1,10 @@
 import os
 
 from mlops.utils.deploy.terraform.env_vars import set_environment_variables
-from mlops.utils.deploy.terraform.setup import download_terraform_configurations, setup_configurations
+from mlops.utils.deploy.terraform.setup import (
+    download_terraform_configurations,
+    setup_configurations,
+)
 
 if 'custom' not in globals():
     from mage_ai.data_preparation.decorators import custom
@@ -33,7 +36,7 @@ def setup(*args, **kwargs):
     """
     Use the current environment variables as the environment variables in production.
     Change this if you want different values.
-    In a real world environment, we’d have different values but this is here for 
+    In a real world environment, we’d have different values but this is here for
     demonstration purposes and for convenience.
     """
     set_environment_variables(

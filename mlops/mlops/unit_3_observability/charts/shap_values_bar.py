@@ -15,7 +15,9 @@ def create_visualization(inputs: Tuple[Booster, csr_matrix, Series], **kwargs):
     model, X, _ = inputs
 
     # Random sampling - for example, 10% of the data
-    sample_indices = np.random.choice(X.shape[0], size=int(X.shape[0] * 0.1), replace=False)
+    sample_indices = np.random.choice(
+        X.shape[0], size=int(X.shape[0] * 0.1), replace=False
+    )
     X_sampled = X[sample_indices]
     X_sampled = X[:1]
 

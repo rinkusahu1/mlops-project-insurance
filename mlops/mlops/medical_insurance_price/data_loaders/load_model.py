@@ -3,7 +3,9 @@ if 'data_loader' not in globals():
 if 'test' not in globals():
     from mage_ai.data_preparation.decorators import test
 
-from mlops.mi_util.model_registration.register import  load_registered_model
+from mlops.mi_util.model_registration.register import load_registered_model
+
+
 @data_loader
 def load_model(*args, **kwargs):
     """
@@ -14,6 +16,5 @@ def load_model(*args, **kwargs):
     """
     # Specify your data loading logic here
 
-    model, dv  = load_registered_model()
-    return model,dv
-
+    model, dv = load_registered_model()
+    return model, dv

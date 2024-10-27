@@ -3,12 +3,11 @@ from typing import Callable, Dict, Optional, Tuple, Union
 import numpy as np
 import sklearn
 from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
+from mlops.utils.hyperparameters.shared import build_hyperparameters_space
 from pandas import Series
 from scipy.sparse._csr import csr_matrix
 from sklearn.base import BaseEstimator
 from sklearn.metrics import mean_squared_error
-
-from mlops.utils.hyperparameters.shared import build_hyperparameters_space
 
 HYPERPARAMETERS_WITH_CHOICE_INDEX = [
     'fit_intercept',

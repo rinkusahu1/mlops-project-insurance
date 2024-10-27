@@ -6,11 +6,11 @@ if 'custom' not in globals():
 
 @custom
 def retrain(*args, **kwargs):
-    models =[
+    models = [
         "linear_model.LinearRegression",
         "linear_model.Ridge",
         "svm.SVR",
-        "ensemble.RandomForestRegressor"
+        "ensemble.RandomForestRegressor",
     ]
 
     trigger_pipeline(

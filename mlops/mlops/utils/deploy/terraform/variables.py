@@ -3,9 +3,8 @@ import os
 import re
 from typing import Dict, List, Tuple, Union
 
-from typing_extensions import Optional
-
 from mlops.utils.deploy.terraform.constants import TERRAFORM_AWS_FULL_PATH
+from typing_extensions import Optional
 
 
 def parse_terraform_variables(lines: List[str]) -> Tuple[Dict, set]:

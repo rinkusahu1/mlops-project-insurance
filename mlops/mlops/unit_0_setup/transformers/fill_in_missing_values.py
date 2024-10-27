@@ -1,10 +1,12 @@
-from pandas import DataFrame
 import math
+
+from pandas import DataFrame
 
 if 'transformer' not in globals():
     from mage_ai.data_preparation.decorators import transformer
 if 'test' not in globals():
     from mage_ai.data_preparation.decorators import test
+
 
 def select_number_columns(df: DataFrame) -> DataFrame:
     return df[['Age', 'Fare', 'Parch', 'Pclass', 'SibSp', 'Survived']]

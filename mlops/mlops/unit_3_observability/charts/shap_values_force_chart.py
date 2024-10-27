@@ -6,11 +6,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import shap
+from mage_ai.shared.parsers import convert_matrix_to_dataframe
 from pandas import Series
 from scipy.sparse._csr import csr_matrix
 from xgboost import Booster
-
-from mage_ai.shared.parsers import convert_matrix_to_dataframe
 
 
 @render(render_type='jpeg')
@@ -18,7 +17,9 @@ def create_visualization(inputs: Tuple[Booster, csr_matrix, Series], *args, **kw
     model, X, _ = inputs
 
     # Random sampling - for example, 10% of the data
-    sample_indices = np.random.choice(X.shape[0], size=int(X.shape[0] * 0.1), replace=False)
+    sample_indices = np.random.choice(
+        X.shape[0], size=int(X.shape[0] * 0.1), replace=False
+    )
     X_sampled = X[sample_indices]
     X_sampled = X[:1]
 
@@ -51,7 +52,7 @@ def create_visualization(inputs: Tuple[Booster, csr_matrix, Series], *args, **kw
         explainer.expected_value,
         shap_values[idx, :][np.newaxis, X.columns.get_indexer(top_n_features)],
         X_top_n.iloc[idx, :],
-        matplotlib=True
+        matplotlib=True,
     )
 
     string_bytes = io.BytesIO()

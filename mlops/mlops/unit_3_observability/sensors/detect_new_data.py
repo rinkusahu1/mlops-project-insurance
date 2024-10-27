@@ -1,7 +1,7 @@
 import json
 import os
-import requests
 
+import requests
 from mage_ai.settings.repo import get_repo_path
 
 if 'sensor' not in globals():
@@ -12,19 +12,21 @@ if 'sensor' not in globals():
 def check_for_new_data(*args, **kwargs) -> bool:
     path = os.path.join(get_repo_path(), '.cache', 'data_tracker')
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    
+
     data_tracker_prev = {}
     if os.path.exists(path):
         with open(path, 'r') as f:
             data_tracker_prev = json.load(f)
 
-    data_tracker = requests.get('https://hub.docker.com/v2/repositories/mageai/mageai').json()
+    data_tracker = requests.get(
+        'https://hub.docker.com/v2/repositories/mageai/mageai'
+    ).json()
     with open(path, 'w') as f:
         f.write(json.dumps(data_tracker))
 
     count_prev = data_tracker_prev.get('pull_count')
     count = data_tracker.get('pull_count')
-    
+
     print(f'Previous count: {count_prev}')
     print(f'Current count:  {count}')
 
@@ -33,5 +35,5 @@ def check_for_new_data(*args, **kwargs) -> bool:
         print('Retraining models...')
     else:
         print('Not enough new data to retrain models.')
-    
+
     return should_train

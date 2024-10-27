@@ -111,7 +111,11 @@ def track_experiment(
             ('dataset', validation_set, dict(context='validation')),
             (
                 'targets',
-                validation_targets.to_numpy() if validation_targets is not None else None,
+                (
+                    validation_targets.to_numpy()
+                    if validation_targets is not None
+                    else None
+                ),
                 dict(context='validation'),
             ),
             ('predictions', predictions, dict(context='training')),
@@ -127,7 +131,9 @@ def track_experiment(
 
             if dataset_from:
                 ds = dataset_from(dataset, name=dataset_name)._to_mlflow_entity()
-                ds_input = DatasetInput(ds, tags=[InputTag(k, v) for k, v in tags.items()])
+                ds_input = DatasetInput(
+                    ds, tags=[InputTag(k, v) for k, v in tags.items()]
+                )
                 dataset_inputs.append(ds_input)
 
             if verbosity:

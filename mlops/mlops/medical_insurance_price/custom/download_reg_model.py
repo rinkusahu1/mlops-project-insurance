@@ -1,8 +1,8 @@
 if 'custom' not in globals():
     from mage_ai.data_preparation.decorators import custom
 
+from mlops.mi_util.model_registration.register import load_registered_model
 
-from mlops.mi_util.model_registration.register import  load_registered_model
 
 @custom
 def transform_custom(*args, **kwargs):
@@ -14,7 +14,5 @@ def transform_custom(*args, **kwargs):
     """
     # Specify your custom logic here
 
-
-    model, dv  = load_registered_model()
-    return model,dv
-
+    model, dv = load_registered_model()
+    return model, dv
