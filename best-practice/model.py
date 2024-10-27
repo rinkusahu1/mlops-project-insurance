@@ -5,6 +5,8 @@ import pickle
 
 import boto3
 import mlflow
+import sklearn
+from sklearn.preprocessing import StandardScaler
 
 
 def get_model_location(run_id):
@@ -19,6 +21,10 @@ def get_model_location(run_id):
     model_location = (
         f's3://{model_bucket}/{experiment_id}/{run_id}/artifacts/models_mlflow'
     )
+
+    # model_path = mlflow.artifacts.download_artifacts(
+    #     artifact_uri=model_location, dst_path="."
+    # )
     return model_location
 
 
@@ -31,19 +37,25 @@ def get_scaler_location(run_id):
     model_bucket = os.getenv('MODEL_BUCKET', 'medical-insurance-pp-artifacts')
     experiment_id = os.getenv('MLFLOW_EXPERIMENT_ID', '1')
 
-    scaler_location = (
-        f's3://{model_bucket}/{experiment_id}/{run_id}/artifacts/preprocessor'
-    )
+    s3_client = boto3.client('s3')
 
-    scaler_path = mlflow.artifacts.download_artifacts(
-        artifact_uri=scaler_location, dst_path="."
-    )
-    return scaler_path
+    file_key = f"{experiment_id}/{run_id}/artifacts/preprocessor/preprocessor.b"
+    # scaler_location = (
+    #     f's3://{model_bucket}/{experiment_id}/{run_id}/artifacts/preprocessor'
+    # )
+
+    temp_file_path = '/tmp/preprocessor.b'  # Use the /tmp directory for writing
+    s3_client.download_file(model_bucket, file_key, temp_file_path)
+
+    # scaler_path = mlflow.artifacts.download_artifacts(
+    #     artifact_uri=scaler_location, dst_path="."
+    # )
+    return temp_file_path
 
 
 def load_scaler(run_id):
     scaler_location = get_scaler_location(run_id)
-    with open(f"{scaler_location}/preprocessor.b", "rb") as f_in:
+    with open(f"{scaler_location}", "rb") as f_in:
         scaler = pickle.load(f_in)
     return scaler
 
