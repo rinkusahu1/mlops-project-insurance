@@ -1,0 +1,14 @@
+triggers:
+- description: null
+  envs: []
+  last_enabled_at: 2024-10-19 10:28:26.025169+00:00
+  name: Real Time Prediction
+  pipeline_uuid: online_inference
+  schedule_interval: null
+  schedule_type: api
+  settings: null
+  sla: null
+  start_time: 2024-10-19 10:26:00+00:00
+  status: active
+  token: 469405433a364bd988ad2bf9deef4b9f
+  variables: {}

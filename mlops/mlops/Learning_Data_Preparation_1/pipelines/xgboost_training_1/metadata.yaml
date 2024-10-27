@@ -1,0 +1,109 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: Learning_Data_Preparation_1/global_data_products/training_set_1.py
+    global_data_product:
+      uuid: traininf_set_learning_1
+  downstream_blocks:
+  - hypterparameters_tuining/xgboost
+  - xgboost
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: training_set_1
+  retry_config: null
+  status: executed
+  timeout: null
+  type: global_data_product
+  upstream_blocks: []
+  uuid: training_set_1
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: Learning_Data_Preparation_1/transformers/hypterparameters_tuining/xgboost.py
+  downstream_blocks:
+  - xgboost
+  - dashboard_data_source
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: hypterparameters_tuining/xgboost
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - training_set_1
+  uuid: hypterparameters_tuining/xgboost
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: Learning_Data_Preparation_1/data_exporters/xgboost.py
+  downstream_blocks:
+  - dashboard_data_source
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: xgboost
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - training_set_1
+  - hypterparameters_tuining/xgboost
+  uuid: xgboost
+- all_upstream_blocks_executed: true
+  color: pink
+  configuration:
+    file_source:
+      path: Learning_Data_Preparation_1/custom/dashboard_data_source.py
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: dashboard data source
+  retry_config: null
+  status: failed
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - xgboost
+  - hypterparameters_tuining/xgboost
+  uuid: dashboard_data_source
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2024-10-13 14:41:02.374598+00:00'
+data_integration: null
+description: XGBoost
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: xgboost_training_1
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags: []
+type: python
+uuid: xgboost_training_1
+variables:
+  early_stopping_rounds: 1
+  max_depth: 10
+  max_evaluations: 1
+variables_dir: /home/src/mage_data/medical_insurance_price
+widgets: []

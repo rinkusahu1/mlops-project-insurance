@@ -1,0 +1,62 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: medical_insurance_price/sensors/detect_new__data.py
+  downstream_blocks:
+  - retrain/sklearnm
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: Detect New  Data
+  retry_config: null
+  status: executed
+  timeout: null
+  type: sensor
+  upstream_blocks: []
+  uuid: detect_new__data
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: medical_insurance_price/custom/retrain/sklearnm.py
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: retrain/sklearnm
+  retry_config: null
+  status: updated
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - detect_new__data
+  uuid: retrain/sklearnm
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2024-10-20 14:19:38.772714+00:00'
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: Automatic Retraining MP
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags:
+- retraining
+type: python
+uuid: automatic_retraining_mp
+variables_dir: /home/src/mage_data/medical_insurance_price
+widgets: []

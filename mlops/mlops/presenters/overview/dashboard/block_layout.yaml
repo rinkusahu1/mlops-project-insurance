@@ -1,0 +1,108 @@
+blocks:
+  distibution_of_performance:
+    configuration:
+      chart_type: histogram
+      group_by:
+      - rmse_RandomForestRegressor
+      x_axis_label_format: return value.toFixed(3)
+      x_tooltip_label_format: ''
+      y_tooltip_label_format: 'const [xMin,xMax] = values.values
+
+        return `${xMin.toFixed(3)} to ${xMax.toFixed(3)}`'
+    data_source:
+      type: chart_code
+    error: null
+    name: Distibution of performance
+    name_new: Distibution of performance
+    skip_render: false
+    type: chart
+    uuid: distibution_of_performance
+  run_by_model__pie_chart_:
+    configuration:
+      chart_type: pie chart
+      group_by:
+      - model
+      x_axis_label_format: return `${value} (${index/2})`
+    data_source:
+      type: chart_code
+    error: null
+    name: Run by model (Pie chart)
+    name_new: Run by model (Pie chart)
+    skip_render: false
+    type: chart
+    uuid: run_by_model__pie_chart_
+  time_series_bar_chart:
+    configuration:
+      chart_type: time series bar chart
+      group_by:
+      - start_time
+      metrics:
+      - aggregation: average
+        column: rmse_RandomForestRegressor
+      - aggregation: average
+        column: rmse_LinearRegression
+      - aggregation: average
+        column: mse_Ridge
+      time_interval: hour
+      x_axis_label_format: hh
+    data_source:
+      type: chart_code
+    error: null
+    name: Time series bar chart
+    skip_render: false
+    type: chart
+    uuid: time_series_bar_chart
+  total_runs_by_modelv:
+    configuration:
+      chart_style: horizontal
+      chart_type: bar chart
+      group_by:
+      - model
+      metrics:
+      - aggregation: count_distinct
+        column: run_uuid
+      y_sort_order: descending
+      y_tooltip_label_format: return `${value} total runs`
+    data_source:
+      type: chart_code
+    error: null
+    name: Total runs by modelv
+    name_new: Total runs by modelv
+    skip_render: false
+    type: chart
+    uuid: total_runs_by_modelv
+  training_metrics__rmse__mm:
+    configuration:
+      chart_type: time series line chart
+      design:
+        y_values_smooth: true
+      group_by:
+      - start_time
+      metrics:
+      - aggregation: average
+        column: rmse_RandomForestRegressor
+      - aggregation: average
+        column: rmse_LinearRegression
+      - aggregation: average
+        column: rmse_Ridge
+      time_interval: minute
+      x_axis_label_format: hh
+      y_values_smooth: true
+    data_source:
+      type: chart_code
+    error: null
+    name: Training Metrics (RMSE) mm
+    skip_render: false
+    type: chart
+    uuid: training_metrics__rmse__mm
+layout:
+- - block_uuid: run_by_model__pie_chart_
+    width: 1
+  - block_uuid: total_runs_by_modelv
+    width: 1
+- - block_uuid: time_series_bar_chart
+    width: 1
+  - block_uuid: training_metrics__rmse__mm
+    width: 1
+- - block_uuid: distibution_of_performance
+    width: 1

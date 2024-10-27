@@ -1,0 +1,41 @@
+model_traing_rf:
+  object_type: pipeline
+  object_uuid: sklearn_training_m
+  outdated_after:
+    seconds: 2000
+  project: medical_insurance_price
+  repo_path: /home/src/mlops/medical_insurance_price
+  settings:
+    training_model: {}
+models:
+  object_type: pipeline
+  object_uuid: sklearn_training_m
+  outdated_after:
+    seconds: 86400
+    weeks: null
+  outdated_starting_at:
+    hour_of_day: 13
+  project: medical_insurance_price
+  repo_path: /home/src/mlops/medical_insurance_price
+  settings:
+    sklearn_model_training: {}
+sklearned_tranined_m:
+  object_type: pipeline
+  object_uuid: sklearn_training_m
+  outdated_after:
+    seconds: 700
+  outdated_starting_at:
+    hour_of_day: 0
+  project: medical_insurance_price
+  repo_path: /home/src/mlops/medical_insurance_price
+  settings:
+    sklearn_model_training: {}
+training_set_m:
+  object_type: pipeline
+  object_uuid: data_preparation_m
+  outdated_after:
+    seconds: 700
+  project: medical_insurance_price
+  repo_path: /home/src/mlops/medical_insurance_price
+  settings:
+    build_block: {}
