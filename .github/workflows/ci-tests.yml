@@ -40,10 +40,15 @@ jobs:
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
+      - name: Check for Dockerfile
+        working-directory: 'best-practice/integration_test'
+        run: |
+          ls ..
+
       - name: Integration Test
         working-directory: 'best-practice/integration_test'
         run: |
-          . run.sh
+          run.sh
 
   tf-plan:
     runs-on: ubuntu-latest
