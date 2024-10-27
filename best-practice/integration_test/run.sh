@@ -14,7 +14,7 @@ fi
 
 export PREDICTIONS_STREAM_NAME="insurance_price_predictions"
 
-docker-compose up -d
+docker compose up -d
 
 sleep 5
 
