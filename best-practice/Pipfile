@@ -11,6 +11,8 @@ psutil = "==5.9.8"
 packaging = "==23.2"
 lz4 = "==4.3.3"
 cloudpickle = "==3.0.0"
+psycopg-binary = "*"
+psycopg = "*"
 
 [dev-packages]
 pytest = "*"

@@ -69,6 +69,26 @@ def base64_decode(encoded_data):
     medical_insurance_event = json.loads(decoded_data)
     return medical_insurance_event
 
+def insert_into_database(requestid,insurance,prediction):
+    try:
+        with psycopg.connect("host=localhost port=5432 dbname=insurance user=postgres password=example", autocommit=True) as conn:
+            with conn.cursor() as curr:
+                curr.execute(
+                    "INSERT INTO dummy_metrics(timestamp, requestid, sex, age, bmi, children, smoker, charges) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+                    (datetime.datetime.now(pytz.timezone('Europe/London')), 
+                     requestid,
+                     insurance['sex'], 
+                     insurance['age'],
+                     insurance['bmi'],
+                     insurance['children'],  # Corrected the key from 'chidren' to 'children'
+                     insurance['smoker'], 
+                     insurance['charges']
+                    )
+                )
+    except Exception as e:  # Catching all exceptions
+        print(f"An error occurred while inserting into the database: {e}")
+        
+        
 
 class ModelService:
     def __init__(self, model, scaler, model_version=None, callbacks=None):
@@ -137,11 +157,18 @@ class ModelService:
             # print(medical_insurance_event)
             insurance = medical_insurance_event['insurance']
             insurance_id = medical_insurance_event['medical_insurance_id']
-
-            features = self.prepare_features(insurance)
-            features = self.scaling(features)
-            prediction = self.predict(features)
-            prediction = self.prediction_conversion({'charges': prediction})
+            try:
+                features = self.prepare_features(insurance)
+                features = self.scaling(features)
+                prediction = self.predict(features)
+                prediction = self.prediction_conversion({'charges': prediction})
+            except Exception as e:  # Catching all exceptions
+                    prediction = None
+                    print(f"An error occurred while predicting: {e}")
+            finally:
+                    print("Execution complete.")
+                    insert_into_database(insurance_id,insurance,prediction):
+                   
 
             prediction_event = {
                 'model': 'insurance_price_prediction_model',
