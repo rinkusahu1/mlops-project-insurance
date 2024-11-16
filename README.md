@@ -4,7 +4,7 @@
 Medical Insurance Price Prediction aims to estimate the cost of insurance premiums based on factors like age, gender, BMI, smoking habits, and region. By analyzing historical data using machine learning models, this project helps uncover patterns affecting insurance costs. The insights can support fair pricing strategies and guide individuals on how lifestyle and demographics influence premiums.
 
 
-## Development 🚀⚙️
+## 🚀⚙️ Development 
 
 - Developed the ML models (LR, RFR, SVR) to predict medical insurance pricing, achieving an R² score of 0.847. Engineered ML training pipeline using Mage.ai, integrated experiment tracking with MLflow, and securely stored trained models on S3 Bucket. 
 - Dockerized the model for efficient deployment via Lambda Function, utilizing Kinesis as an event trigger for real-time predictions.
