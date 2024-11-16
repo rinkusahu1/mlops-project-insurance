@@ -50,7 +50,7 @@ The project is compatible with the following operating systems:
 ###  Mlflow Setup
 
 #### Start mlflow server
-- mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root s3://medical-insurance-pp-artifacts
+- `mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root s3://medical-insurance-pp-artifacts`
 - models are deployed on s3 bucket. 
 
 
@@ -81,13 +81,11 @@ The project is compatible with the following operating systems:
 ### CI/CD pipeline 
 - CI pipeline file .github/workflows/ci-tests.yml
 
-- CD pipeline file .github/workflows/cd-deploy.yml
-update MODEL_BUCKET_DEV and RUN_ID in `cd-deploy.yml` as per your usage.
+- CD pipeline file .github/workflows/cd-deploy.yml, update MODEL_BUCKET_DEV and RUN_ID in `cd-deploy.yml` as per your usage.
 
 #### Deployment Testing
 - Go to PROJECTBASEFOLDER/best-practice/scripts/
-- Run  `sh test-cloud-e2e.sh` command
-update `KINESIS_STREAM_OUTPUT`,`KINESIS_STREAM_INPUT` variable based on environment deployment
+- Run  `sh test-cloud-e2e.sh` command, update `KINESIS_STREAM_OUTPUT`,`KINESIS_STREAM_INPUT` variable based on environment deployment
 
 
 
