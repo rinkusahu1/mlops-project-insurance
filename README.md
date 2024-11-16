@@ -16,17 +16,17 @@ Medical Insurance Price Prediction aims to estimate the cost of insurance premiu
 
 ### Preprocessing Pipeline
 <div align="center">
-    <img src="images/data-preprocessing pipeline.PNG" alt="orientation" width="500">
+    <img src="images/data-preprocessing pipeline.PNG" alt="orientation" width="600">
 </div>
 
 ### Trainig Pipeline
 <div align="center">
-    <img src="images/model-training-pipeline.PNG" alt="orientation" width="500">
+    <img src="images/model-training-pipeline.PNG" alt="orientation" width="600">
 </div>
 
 ### MLFlow Experiment Tracking
 <div align="center">
-    <img src="images/mlflow.PNG" alt="orientation" width="500">
+    <img src="images/mlflow.PNG" alt="orientation" width="600">
 </div>
 
 
@@ -35,12 +35,12 @@ Medical Insurance Price Prediction aims to estimate the cost of insurance premiu
 
 ### CI Pipeline
 <div align="center">
-    <img src="images/ci-test.PNG" alt="orientation" width="500">
+    <img src="images/ci-test.PNG" alt="orientation" width="600">
 </div>
 
 ### CD Pipeline
 <div align="center">
-    <img src="images/cd-pipeline.PNG" alt="orientation" width="500">
+    <img src="images/cd-pipeline.PNG" alt="orientation" width="600">
 </div>
 
 ## Monitoring 
@@ -48,15 +48,15 @@ Monitored the model's performance using Evidently within a Jupyter Notebook, ana
 
 ### Evidently Dashboard
 <div align="center">
-    <img src="images/evidently-dashboard.PNG" alt="orientation" width="500">
+    <img src="images/evidently-dashboard.PNG" alt="orientation" width="600">
 </div>
 
 ### Evidently Report
 <div align="center">
-    <img src="images/evidently-report.PNG" alt="orientation" width="500">
+    <img src="images/evidently-report.PNG" alt="orientation" width="600">
 </div>
 
 ### Evidently TestSuite
 <div align="center">
-    <img src="images/evidently-test-suites.PNG" alt="orientation" width="500">
+    <img src="images/evidently-test-suites.PNG" alt="orientation" width="600">
 </div>
